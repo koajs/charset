@@ -1,0 +1,35 @@
+{
+  "name": "koa-charset",
+  "version": "1.0.0",
+  "description": "use iconv-lite to encode the body and set charset to content-type",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:koajs/charset.git"
+  },
+  "keywords": [
+    "koa",
+    "middleware",
+    "charset",
+    "iconv-lite"
+  ],
+  "author": "dead_horse <dead_horse@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koajs/charset/issues"
+  },
+  "homepage": "https://github.com/koajs/charset",
+  "devDependencies": {
+    "autod": "^0.2.1",
+    "koa": "^0.8.1",
+    "mocha": "*",
+    "should": "^4.0.4",
+    "supertest": "~0.13.0"
+  },
+  "dependencies": {
+    "iconv-lite": "~0.4.3"
+  }
+}
