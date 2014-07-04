@@ -50,6 +50,20 @@ app.use(function* () {
 });
 ```
 
+also this module will get the charset from `Content-Type`, so you can just use `koa-charset`,
+then this middleware will automatically re-encode the body only if the charset is not utf8.
+
+```
+var app = koa();
+app.use(charset());
+app.use(function* () {
+  var charset = this.acceptsCharsets('utf8', 'gbk') || 'utf8';
+  this.vary('accept-charset');
+  this.type = 'text/plain; charset=' + charset;
+  this.body = 'something';
+});
+```
+
 ## License
 
 MIT
