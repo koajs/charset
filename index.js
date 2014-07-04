@@ -26,7 +26,7 @@ module.exports = function (options) {
     // at last check charset in `content-type`
     var charset = (this.charset
       || options.charset
-      || parsetType(this.response.get('Content-Type'))).toLowerCase();
+      || parseType(this.response.get('Content-Type'))).toLowerCase();
 
     if (!charset
       || charset === 'utf-8'
@@ -66,7 +66,7 @@ function text(type) {
  * get charset from `contentType`
  */
 
-function parsetType(type) {
+function parseType(type) {
   if (!type) return;
   var m = type.match(/charset *= *(\S+)/);
   if (m) return m[1];
