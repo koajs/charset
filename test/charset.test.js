@@ -158,4 +158,19 @@ describe('test/charset.test.js', function () {
     .get('/')
     .expect('Content-type', 'text/html', done);
   });
+
+  it('should get charset from content-type', function (done) {
+    var app = koa();
+    app.use(charset());
+    app.use(function* () {
+      this.type = 'text/html; charset=gbk';
+      this.body = '你好';
+    });
+
+    request(app.callback())
+    .get('/')
+    .expect('Content-type', 'text/html; charset=gbk')
+    .expect(200)
+    .expect(iconv.encode('你好', 'gbk').toString(), done);
+  });
 });

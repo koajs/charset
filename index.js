@@ -18,11 +18,19 @@ module.exports = function (options) {
 
   return function* charset(next) {
     yield* next;
+    // manually turn off charset by `this.charset = false`
     if (this.charset === false) return;
 
-    var charset = (this.charset || options.charset).toLowerCase();
+    // first this.charset
+    // then global.charset
+    // at last check charset in `content-type`
+    var charset = (this.charset
+      || options.charset
+      || parsetType(this.response.get('Content-Type'))).toLowerCase();
 
-    if (charset === 'utf-8' || charset === 'utf8') return;
+    if (!charset
+      || charset === 'utf-8'
+      || charset === 'utf8') return;
     if (!this.body) return;
     if (!text(this.type)) return;
 
@@ -52,4 +60,14 @@ module.exports = function (options) {
 function text(type) {
   if (/^text\//.test(type)) return true;
   if (type === 'application/json') return true;
+}
+
+/**
+ * get charset from `contentType`
+ */
+
+function parsetType(type) {
+  if (!type) return;
+  var m = type.match(/charset *= *(\S+)/);
+  if (m) return m[1];
 }

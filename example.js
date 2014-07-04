@@ -7,8 +7,7 @@ var app = koa();
 app.use(charset());
 app.use(function* () {
   this.body = '你好！';
-  this.charset = 'gbk';
-  this.type = 'html';
+  this.type = 'text/html; charset=gbk';
 });
 
 app.listen(3000);
