@@ -24,12 +24,13 @@
   "homepage": "https://github.com/koajs/charset",
   "devDependencies": {
     "autod": "^0.2.1",
-    "koa": "^0.8.1",
+    "koa": "~0.8.1",
     "mocha": "*",
-    "should": "^4.0.4",
+    "should": "~4.0.4",
     "supertest": "~0.13.0"
   },
   "dependencies": {
-    "iconv-lite": "~0.4.3"
+    "iconv-lite": "~0.4.3",
+    "media-typer": "~0.2.0"
   }
 }

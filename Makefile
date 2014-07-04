@@ -16,7 +16,7 @@ test:
 		$(TESTS)
 
 autod:
-	@./node_modules/.bin/autod -w -e example --prefix=~ --keep=supertest
+	@./node_modules/.bin/autod -w -e example.js --prefix=~ --keep=supertest
 	@$(MAKE) install
 
 .PHONY: test

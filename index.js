@@ -11,6 +11,7 @@
  */
 
 var iconv = require('iconv-lite');
+var typer = require('media-typer');
 
 module.exports = function (options) {
   options = options || {};
@@ -21,12 +22,14 @@ module.exports = function (options) {
     // manually turn off charset by `this.charset = false`
     if (this.charset === false) return;
 
+    var contentType = this.response.get('Content-Type');
+
     // first this.charset
     // then global.charset
     // at last check charset in `content-type`
     var charset = (this.charset
       || options.charset
-      || parseType(this.response.get('Content-Type'))).toLowerCase();
+      || (typer.parse(contentType).parameters.charset)).toLowerCase();
 
     if (!charset
       || charset === 'utf-8'
@@ -60,14 +63,4 @@ module.exports = function (options) {
 function text(type) {
   if (/^text\//.test(type)) return true;
   if (type === 'application/json') return true;
-}
-
-/**
- * get charset from `contentType`
- */
-
-function parseType(type) {
-  if (!type) return;
-  var m = type.match(/charset *= *(\S+)/);
-  if (m) return m[1];
 }
