@@ -21,6 +21,8 @@ module.exports = function (options) {
     yield* next;
     // manually turn off charset by `this.charset = false`
     if (this.charset === false) return;
+    if (!this.body) return;
+    if (!text(this.type)) return;
 
     var contentType = this.response.get('Content-Type');
 
@@ -34,8 +36,6 @@ module.exports = function (options) {
     if (!charset
       || charset === 'utf-8'
       || charset === 'utf8') return;
-    if (!this.body) return;
-    if (!text(this.type)) return;
 
     // set type with charset
     var type = this.type;
