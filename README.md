@@ -1,7 +1,25 @@
 charset
 ----------
 
-[![Build Status](https://secure.travis-ci.org/koajs/charset.svg)](http://travis-ci.org/koajs/charset)
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Coveralls][coveralls-image]][coveralls-url]
+[![David deps][david-image]][david-url]
+[![node version][node-image]][node-url]
+[![Gittip][gittip-image]][gittip-url]
+
+[npm-image]: https://img.shields.io/npm/v/koa-charset.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/koa-charset
+[travis-image]: https://img.shields.io/travis/koajs/charset.svg?style=flat-square
+[travis-url]: https://travis-ci.org/koajs/charset
+[coveralls-image]: https://img.shields.io/coveralls/koajs/charset.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/koajs/charset?branch=master
+[david-image]: https://img.shields.io/david/koajs/charset.svg?style=flat-square
+[david-url]: https://david-dm.org/koajs/charset
+[node-image]: https://img.shields.io/badge/node.js-%3E=_0.11-red.svg?style=flat-square
+[node-url]: http://nodejs.org/download/
+[gittip-image]: https://img.shields.io/gittip/dead-horse.svg?style=flat-square
+[gittip-url]: https://www.gittip.com/dead-horse/
 
 use [iconv-lite](https://github.com/ashtuchkin/iconv-lite) to encode the body and set charset to content-type.
 
