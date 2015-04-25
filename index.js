@@ -31,7 +31,8 @@ module.exports = function (options) {
     // at last check charset in `content-type`
     var charset = (this.charset
       || options.charset
-      || typer.parse(contentType).parameters.charset).toLowerCase();
+      || typer.parse(contentType).parameters.charset
+      || '').toLowerCase();
 
     if (!charset
       || charset === 'utf-8'

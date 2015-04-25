@@ -159,6 +159,19 @@ describe('test/charset.test.js', function () {
     .expect('Content-type', 'text/html', done);
   });
 
+  it('should ignore without charset', function (done) {
+    var app = koa();
+    app.use(charset());
+    app.use(function* () {
+      this.body = '你好';
+      this.set('Content-Type', 'text/html');
+    });
+
+    request(app.callback())
+    .get('/')
+    .expect('Content-type', 'text/html', done);
+  });
+
   it('should get charset from content-type', function (done) {
     var app = koa();
     app.use(charset());
