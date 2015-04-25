@@ -1,5 +1,11 @@
 
-n.n.n / 2014-07-07
+1.1.3 / 2015-04-25
+==================
+
+  * bump dependencies
+  * fix no charset in content-type
+
+1.1.2 / 2014-07-07
 ==================
 
   * first check body and type
