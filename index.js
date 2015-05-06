@@ -10,8 +10,8 @@
  * Module dependencies.
  */
 
+var typer = require('content-type');
 var iconv = require('iconv-lite');
-var typer = require('media-typer');
 
 module.exports = function (options) {
   options = options || {};

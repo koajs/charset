@@ -25,13 +25,13 @@
   "devDependencies": {
     "autod": "^0.2.1",
     "istanbul-harmony": "~0.3.0",
-    "koa": "~0.19.1",
+    "koa": "~0.20.0",
     "mocha": "~1.21.4",
     "should": "~6.0.1",
     "supertest": "~0.13.0"
   },
   "dependencies": {
-    "iconv-lite": "~0.4.8",
-    "media-typer": "~0.3.0"
+    "content-type": "~1.0.1",
+    "iconv-lite": "~0.4.8"
   }
 }
