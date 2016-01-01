@@ -23,12 +23,12 @@
   },
   "homepage": "https://github.com/koajs/charset",
   "devDependencies": {
-    "autod": "^0.2.1",
+    "autod": "^2.4.1",
     "istanbul-harmony": "~0.3.0",
-    "koa": "~0.20.0",
-    "mocha": "~1.21.4",
-    "should": "~6.0.1",
-    "supertest": "~0.13.0"
+    "koa": "~1.1.2",
+    "mocha": "~2.3.4",
+    "should": "~8.0.2",
+    "supertest": "~1.1.0"
   },
   "dependencies": {
     "content-type": "~1.0.1",
