@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/koajs/charset",
   "devDependencies": {
-    "autod": "^0.2.1",
+    "autod": "^2.4.2",
     "istanbul-harmony": "~0.3.0",
     "koa": "~0.20.0",
     "mocha": "~1.21.4",
