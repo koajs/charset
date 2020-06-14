@@ -1,4 +1,4 @@
-charset
+[koa-charset][github-repo]
 ----------
 
 [![NPM version][npm-image]][npm-url]
@@ -8,6 +8,7 @@ charset
 [![node version][node-image]][node-url]
 [![Gittip][gittip-image]][gittip-url]
 
+[github-repo]: https://github.com/koajs/charset
 [npm-image]: https://img.shields.io/npm/v/koa-charset.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-charset
 [travis-image]: https://img.shields.io/travis/koajs/charset.svg?style=flat-square
@@ -21,27 +22,32 @@ charset
 [gittip-image]: https://img.shields.io/gittip/dead-horse.svg?style=flat-square
 [gittip-url]: https://www.gittip.com/dead-horse/
 
-use [iconv-lite](https://github.com/ashtuchkin/iconv-lite) to encode the body and set charset to content-type.
+Use [iconv-lite](https://github.com/ashtuchkin/iconv-lite) to encode the body and set charset to content-type.
 
 ## Install
 
-```
-npm install koa-charset
+```bash
+# npm ..
+npm i koa-charset
+# yarn ..
+yarn add koa-charset
 ```
 
 ## Usage
 
 ```
-var koa = require('koa');
-var charset = require('koa-charset');
+const Koa = require('koa');
+const charset = require('koa-charset');
 
-var app = koa();
-app.use(charset({ charset: 'gbk' }));
+const app = new Koa();
 
-app.use(function* () {
-  this.body = '你好';
+app.use(charset());
+app.use(function (ctx) {
+  ctx.body = 'Hello World！';
+  ctx.type = 'text/html; charset=gbk';
 });
 
+app.listen(3000);
 ```
 
 ## Options
@@ -50,21 +56,21 @@ app.use(function* () {
 
 ## Manually turning charset on and off
 
-You can set `this.charset` to cover the global charset.
+You can set `ctx.charset` to cover the global charset.
 
 ```
-app.use(function* () {
-  this.charset = 'gb2312';
-  this.body = '你好';
+app.use(function (ctx) {
+  ctx.charset = 'gb2312';
+  ctx.body = 'Hello World';
 });
 ```
 
-You can disable charset by `this.charset = false`.
+You can disable charset by `ctx.charset = false`.
 
 ```
-app.use(function* () {
-  this.charset = false;
-  this.body = 'hello';
+app.use(function (ctx) {
+  ctx.charset = false;
+  ctx.body = 'hello';
 });
 ```
 
@@ -72,16 +78,16 @@ also this module will get the charset from `Content-Type`, so you can just use `
 then this middleware will automatically re-encode the body only if the charset is not utf8.
 
 ```
-var app = koa();
+const app = new Koa();
 app.use(charset());
-app.use(function* () {
-  var charset = this.acceptsCharsets('utf8', 'gbk') || 'utf8';
-  this.vary('accept-charset');
-  this.type = 'text/plain; charset=' + charset;
-  this.body = 'something';
+app.use(function () {
+  const charset = ctx.acceptsCharsets('utf8', 'gbk') || 'utf8';
+  ctx.vary('accept-charset');
+  ctx.type = `text/plain; charset=${charset}`;
+  ctx.body = 'something';
 });
 ```
 
 ## License
 
-MIT
+[MIT](LICENSE)
