@@ -1,10 +1,16 @@
 {
   "name": "koa-charset",
   "version": "1.1.4",
-  "description": "use iconv-lite to encode the body and set charset to content-type",
+  "description": "Use iconv-lite to encode the body and set charset to content-type.",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "lint": "xo",
+    "pretest": "npm run lint",
+    "test": "mocha --exit",
+    "precoverage": "rimraf .nyc_output coverage",
+    "coverage": "nyc npm run test",
+    "preci": "echo start CI ........",
+    "ci": "npm run coverage"
   },
   "repository": {
     "type": "git",
@@ -17,21 +23,50 @@
     "iconv-lite"
   ],
   "author": "dead_horse <dead_horse@qq.com>",
+  "contributors": [
+    "3imed-jaberi <imed_jebari@hotmail.fr> (https://www.3imed-jaberi.com)"
+  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/koajs/charset/issues"
+  "dependencies": {
+    "content-type": "~1.0.4",
+    "iconv-lite": "~0.6.0"
+  },
+  "devDependencies": {
+    "eslint-config-xo-lass": "^1.0.3",
+    "koa": "^2.12.1",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
+    "xo": "^0.32.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "none"
+  },
+  "xo": {
+    "prettier": true,
+    "space": true,
+    "extends": [
+      "xo-lass"
+    ],
+    "ignore": [
+      "test",
+      "example.js"
+    ],
+    "rules": {
+      "node/no-deprecated-api": "off",
+      "no-unused-vars": "off",
+      "no-prototype-builtins": "off",
+      "prefer-rest-params": "off"
+    }
+  },
+  "engines": {
+    "node": ">= 10"
   },
   "homepage": "https://github.com/koajs/charset",
-  "devDependencies": {
-    "autod": "^2.4.2",
-    "istanbul-harmony": "~0.3.0",
-    "koa": "~0.20.0",
-    "mocha": "~1.21.4",
-    "should": "~6.0.1",
-    "supertest": "~0.13.0"
-  },
-  "dependencies": {
-    "content-type": "~1.0.1",
-    "iconv-lite": "~0.4.8"
+  "bugs": {
+    "url": "https://github.com/koajs/charset/issues"
   }
 }
