@@ -1,85 +1,76 @@
-/*!
- * charset - test/charset.test.js
- * Copyright(c) 2014 dead_horse <dead_horse@qq.com>
- * MIT Licensed
- */
-
 'use strict';
 
-/**
- * Module dependencies.
- */
-
-var charset = require('..');
-var koa = require('koa');
-var request = require('supertest');
-var iconv = require('iconv-lite');
-var fs = require('fs');
-var path = require('path');
-var should = require('should');
+require('mocha');
+const Koa = require('koa');
+const charset = require('..');
+const request = require('supertest');
+const iconv = require('iconv-lite');
+const fs = require('fs');
+const path = require('path');
+const should = require('should');
 
 describe('test/charset.test.js', function () {
 
   it('should encode ok', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = '你好';
+    app.use(function (ctx) {
+      ctx.body = 'Hello World!';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/plain; charset=gbk')
-    .expect(iconv.encode('你好', 'gbk').toString(), done);
+    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
   });
 
   it('should html ok', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = '<html>你好</html>';
+    app.use(function (ctx) {
+      ctx.body = '<html>Hello World!</html>';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
-    .expect(iconv.encode('<html>你好</html>', 'gbk').toString(), done);
+    .expect(iconv.encode('<html>Hello World!</html>', 'gbk').toString(), done);
   });
 
   it('should json ok', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = {hello: '你好'};
+    app.use(function (ctx) {
+      ctx.body = {hello: 'Hello World!'};
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'application/json; charset=gbk')
-    .expect(iconv.encode(JSON.stringify({hello: '你好'}), 'gbk').toString(), done);
+    .expect(iconv.encode(JSON.stringify({hello: 'Hello World!'}), 'gbk').toString(), done);
   });
 
   it('should buffer ok', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = new Buffer('你好');
-      this.type = 'html';
+    app.use(function (ctx) {
+      ctx.body = new Buffer('Hello World!');
+      ctx.type = 'html';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
-    .expect(iconv.encode('你好', 'gbk').toString(), done);
+    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
   });
 
   it('should stream ok', function (done) {
-    var fixture = path.join(__dirname, 'fixture.txt');
-    var app = koa();
+    const fixture = path.join(__dirname, 'fixture.txt');
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = fs.createReadStream(fixture, 'utf8');
-      this.type = 'txt';
+    app.use(function (ctx) {
+      ctx.body = fs.createReadStream(fixture, 'utf8');
+      ctx.type = 'txt';
     });
 
     request(app.callback())
@@ -88,27 +79,27 @@ describe('test/charset.test.js', function () {
     .expect(iconv.encode(fs.readFileSync(fixture), 'gbk').toString(), done);
   });
 
-  it('should cover by this.charset', function (done) {
+  it('should cover by ctx.charset', function (done) {
 
-    var app = koa();
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.charset = 'gb2312';
-      this.body = '你好';
+    app.use(function (ctx) {
+      ctx.charset = 'gb2312';
+      ctx.body = 'Hello World!';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/plain; charset=gb2312')
-    .expect(iconv.encode('你好', 'gb2312').toString(), done);
+    .expect(iconv.encode('Hello World!', 'gb2312').toString(), done);
   });
 
-  it('should ignore by this.charset=false', function (done) {
-    var app = koa();
+  it('should ignore by ctx.charset=false', function (done) {
+    const app = new Koa();
     app.use(charset({charset: 'gbk'}));
-    app.use(function* () {
-      this.charset = false;
-      this.body = 'hello';
+    app.use(function (ctx) {
+      ctx.charset = false;
+      ctx.body = 'hello';
     });
 
     request(app.callback())
@@ -117,11 +108,11 @@ describe('test/charset.test.js', function () {
   });
 
   it('should ignore if no body', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset());
-    app.use(function* () {
-      this.charset = 'gbk';
-      this.body = null;
+    app.use(function (ctx) {
+      ctx.charset = 'gbk';
+      ctx.body = null;
     });
 
     request(app.callback())
@@ -133,11 +124,11 @@ describe('test/charset.test.js', function () {
   });
 
   it('should ignore if non-text', function (done) {
-    var fixture = path.join(__dirname, 'fixture.txt');
-    var app = koa();
+    const fixture = path.join(__dirname, 'fixture.txt');
+    const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
-    app.use(function* () {
-      this.body = fs.createReadStream(fixture, 'utf8');
+    app.use(function (ctx) {
+      ctx.body = fs.createReadStream(fixture, 'utf8');
     });
 
     request(app.callback())
@@ -146,12 +137,12 @@ describe('test/charset.test.js', function () {
   });
 
   it('should ignore with utf8', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset());
-    app.use(function* () {
-      this.charset = 'utf8';
-      this.body = '你好';
-      this.set('Content-Type', 'text/html');
+    app.use(function (ctx) {
+      ctx.charset = 'utf8';
+      ctx.body = 'Hello World!';
+      ctx.set('Content-Type', 'text/html');
     });
 
     request(app.callback())
@@ -160,11 +151,11 @@ describe('test/charset.test.js', function () {
   });
 
   it('should ignore without charset', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset());
-    app.use(function* () {
-      this.body = '你好';
-      this.set('Content-Type', 'text/html');
+    app.use(function (ctx) {
+      ctx.body = 'Hello World!';
+      ctx.set('Content-Type', 'text/html');
     });
 
     request(app.callback())
@@ -173,17 +164,17 @@ describe('test/charset.test.js', function () {
   });
 
   it('should get charset from content-type', function (done) {
-    var app = koa();
+    const app = new Koa();
     app.use(charset());
-    app.use(function* () {
-      this.type = 'text/html; charset=gbk';
-      this.body = '你好';
+    app.use(function (ctx) {
+      ctx.type = 'text/html; charset=gbk';
+      ctx.body = 'Hello World!';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
     .expect(200)
-    .expect(iconv.encode('你好', 'gbk').toString(), done);
+    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
   });
 });
