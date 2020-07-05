@@ -29,16 +29,16 @@
   "license": "MIT",
   "dependencies": {
     "content-type": "~1.0.4",
-    "iconv-lite": "~0.6.0"
+    "iconv-lite": "~0.6.1"
   },
   "devDependencies": {
-    "eslint-config-xo-lass": "^1.0.3",
-    "koa": "^2.12.1",
-    "mocha": "^8.0.1",
-    "nyc": "^15.1.0",
-    "should": "^13.2.3",
-    "supertest": "^4.0.2",
-    "xo": "^0.32.0"
+    "eslint-config-xo-lass": "~1.0.3",
+    "koa": "~2.13.0",
+    "mocha": "~8.0.1",
+    "nyc": "~15.1.0",
+    "should": "~13.2.3",
+    "supertest": "~4.0.2",
+    "xo": "~0.32.1"
   },
   "prettier": {
     "singleQuote": true,
