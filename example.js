@@ -1,13 +1,12 @@
+const Koa = require('koa');
+const charset = require('.');
 
-var koa = require('koa');
-var charset = require('./');
-
-var app = koa();
+const app = new Koa();
 
 app.use(charset());
-app.use(function* () {
-  this.body = '你好！';
-  this.type = 'text/html; charset=gbk';
+app.use(function (ctx) {
+  ctx.body = 'Hello World！';
+  ctx.type = 'text/html; charset=gbk';
 });
 
 app.listen(3000);
