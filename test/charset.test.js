@@ -15,53 +15,53 @@ describe('test/charset.test.js', function () {
     const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
     app.use(function (ctx) {
-      ctx.body = 'Hello World!';
+      ctx.body = '你好';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/plain; charset=gbk')
-    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
+    .expect(iconv.encode('你好', 'gbk').toString(), done);
   });
 
   it('should html ok', function (done) {
     const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
     app.use(function (ctx) {
-      ctx.body = '<html>Hello World!</html>';
+      ctx.body = '<html>你好</html>';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
-    .expect(iconv.encode('<html>Hello World!</html>', 'gbk').toString(), done);
+    .expect(iconv.encode('<html>你好</html>', 'gbk').toString(), done);
   });
 
   it('should json ok', function (done) {
     const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
     app.use(function (ctx) {
-      ctx.body = {hello: 'Hello World!'};
+      ctx.body = {hello: '你好'};
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'application/json; charset=gbk')
-    .expect(iconv.encode(JSON.stringify({hello: 'Hello World!'}), 'gbk').toString(), done);
+    .expect(iconv.encode(JSON.stringify({hello: '你好'}), 'gbk').toString(), done);
   });
 
   it('should buffer ok', function (done) {
     const app = new Koa();
     app.use(charset({ charset: 'gbk'} ));
     app.use(function (ctx) {
-      ctx.body = new Buffer('Hello World!');
+      ctx.body = Buffer.from('你好');
       ctx.type = 'html';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
-    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
+    .expect(iconv.encode('你好', 'gbk').toString(), done);
   });
 
   it('should stream ok', function (done) {
@@ -85,13 +85,13 @@ describe('test/charset.test.js', function () {
     app.use(charset({ charset: 'gbk'} ));
     app.use(function (ctx) {
       ctx.charset = 'gb2312';
-      ctx.body = 'Hello World!';
+      ctx.body = '你好';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/plain; charset=gb2312')
-    .expect(iconv.encode('Hello World!', 'gb2312').toString(), done);
+    .expect(iconv.encode('你好', 'gb2312').toString(), done);
   });
 
   it('should ignore by ctx.charset=false', function (done) {
@@ -141,7 +141,7 @@ describe('test/charset.test.js', function () {
     app.use(charset());
     app.use(function (ctx) {
       ctx.charset = 'utf8';
-      ctx.body = 'Hello World!';
+      ctx.body = '你好';
       ctx.set('Content-Type', 'text/html');
     });
 
@@ -154,7 +154,7 @@ describe('test/charset.test.js', function () {
     const app = new Koa();
     app.use(charset());
     app.use(function (ctx) {
-      ctx.body = 'Hello World!';
+      ctx.body = '你好';
       ctx.set('Content-Type', 'text/html');
     });
 
@@ -168,13 +168,13 @@ describe('test/charset.test.js', function () {
     app.use(charset());
     app.use(function (ctx) {
       ctx.type = 'text/html; charset=gbk';
-      ctx.body = 'Hello World!';
+      ctx.body = '你好';
     });
 
     request(app.callback())
     .get('/')
     .expect('Content-type', 'text/html; charset=gbk')
     .expect(200)
-    .expect(iconv.encode('Hello World!', 'gbk').toString(), done);
+    .expect(iconv.encode('你好', 'gbk').toString(), done);
   });
 });

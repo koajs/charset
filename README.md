@@ -43,7 +43,7 @@ const app = new Koa();
 
 app.use(charset());
 app.use(function (ctx) {
-  ctx.body = 'Hello World！';
+  ctx.body = '你好';
   ctx.type = 'text/html; charset=gbk';
 });
 
@@ -61,7 +61,7 @@ You can set `ctx.charset` to cover the global charset.
 ```
 app.use(function (ctx) {
   ctx.charset = 'gb2312';
-  ctx.body = 'Hello World';
+  ctx.body = '你好';
 });
 ```
 
